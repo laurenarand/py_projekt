@@ -1,0 +1,1 @@
+Paneme jooksvalt kirja, millal tehisaru ja mille jaoks kasutasime
