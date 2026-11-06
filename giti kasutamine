@@ -1,0 +1,20 @@
+Kui alustad programmeerimist
+Kirjuta terminali: git pull origin main
+
+See tõmbab GitHubist paarilise viimased muudatused.
+
+Seejärel võid main.py faili muuta.
+Kui lõpetad programmeerimise
+Salvesta main.py (Ctrl + S) ja kirjuta:
+
+git add main.py
+git commit -m "Täiendasin retseptirakendust"
+git push origin main
+
+
+Nüüd on sinu muudatused GitHubis ja paariline saab jätkata.
+
+1. Ei tohi samal ajal main.py faili muuta. 
+2. Enne alustamist alati Pull. Nii saad kõige uuema koodi.
+3. Pärast lõpetamist alati Commit ja Push. Alles pärast edukat push'i annad paarilisele teada, et võib jätkata.
+Kui git pull või git push annab veateate, ära kirjuta muudatusi jõuga üle, vaid lahenda probleem enne jätkamist.
