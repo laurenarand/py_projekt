@@ -1,7 +1,7 @@
 
 """
 Projekt: Tudengi retseptiabi
-Autorid: Lisa siia autorite nimed
+Autorid: Lauren Arand ja Betti Kallus
 Kirjeldus: Retseptide soovitamine olemasolevate
 koostisosade ja eelarve põhjal.
 """
@@ -93,25 +93,35 @@ def leia_retseptid():
 
 
 def main():
-    """Loob rakenduse graafilise kasutajaliidese."""
+    #Loob rakenduse graafilise kasutajaliidese.
     global eelarve_sisend, valikud, tulemused
 
-    aken = tk.Tk()
-    aken.title("Tudengi retseptiabi")
-    aken.geometry("550x650")
+    aken = tk.Tk() #programmi põhiaken
+    aken.title("Vaese tudengi retseptid")
+
+    akna_laius = 550
+    akna_korgus = 650
+
+    ekraani_laius = aken.winfo_screenwidth() #meetod, mis võimaldab leida vastava ekraani laiuse ja pikkuse, et aken avaneks alati keskel
+    ekraani_korgus = aken.winfo_screenheight()
+
+    x = int((ekraani_laius - akna_laius) / 2)
+    y = int((ekraani_korgus - akna_korgus) / 2)
+
+    aken.geometry(f"{akna_laius}x{akna_korgus}+{x}+{y}") #akna suurus ja asukoht ekraanil
     aken.configure(bg="#f5f5f5")
 
-    tk.Label(
+    tk.Label( #tkinteri Label klass, et teha tekstikasti aknasse
         aken,
-        text="Tudengi retseptiabi",
-        font=("Arial", 20, "bold"),
+        text="Vaese tudengi retseptid",
+        font=("Segoe UI", 20, "bold"),
         bg="#f5f5f5"
-    ).pack(pady=15)
+    ).pack(pady=15) #pady=15 jätab 15 pikslit ruumi üleval ja all
 
     tk.Label(
         aken,
         text="Vali koostisosad, mis sul olemas on:",
-        font=("Arial", 12),
+        font=("Segoe UI", 12),
         bg="#f5f5f5"
     ).pack(pady=5)
 
@@ -131,11 +141,11 @@ def main():
     tk.Label(
         aken,
         text="Sinu eelarve (€):",
-        font=("Arial", 12),
+        font=("Segoe UI", 12),
         bg="#f5f5f5"
     ).pack(pady=10)
 
-    eelarve_sisend = tk.Entry(aken, font=("Arial", 12))
+    eelarve_sisend = tk.Entry(aken, font=("Segoe UI", 12))
     eelarve_sisend.pack()
     eelarve_sisend.insert(0, "3")
 
@@ -145,7 +155,7 @@ def main():
         command=leia_retseptid,
         bg="#4CAF50",
         fg="white",
-        font=("Arial", 12, "bold"),
+        font=("Segoe UI", 12, "bold"),
         padx=20,
         pady=8
     ).pack(pady=15)
@@ -154,12 +164,12 @@ def main():
         aken,
         height=12,
         width=55,
-        font=("Arial", 10),
+        font=("Segoe UI", 10),
         wrap="word"
     )
     tulemused.pack(padx=15, pady=5)
 
-    aken.mainloop()
+    aken.mainloop() #käivitab tkinteri sündmuste tsükli
 
 
 if __name__ == "__main__":

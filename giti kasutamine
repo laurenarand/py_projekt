@@ -1,7 +1,7 @@
 Kui alustad programmeerimist
 Kirjuta terminali: git pull origin main
 
-See tõmbab GitHubist paarilise viimased muudatused.
+See tõmbab GitHubist viimased muudatused.
 
 Seejärel võid main.py faili muuta.
 Kui lõpetad programmeerimise

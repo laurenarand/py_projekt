@@ -8,9 +8,11 @@ Mida teeme alfaversiooni jaoks?
 2. valime vajalikud toiduained, mis arvame, et võiksid nimekirjas olla
 3. mõtleme välja retsepte nende toiduainetega
    
-Mida lisame betaversioonis?
+Mida lisame beetaversioonis?
 
-Retsepti valmistamisjuhendi kuvamine, ostunimekirja eraldi kuvamine, küsib kas on eelistusi: vegan, vegetaarlane(nende jaoks eraldi retseptid). Loome ise iconi ja lisame selle tkinteri aknale.
+Retsepti valmistamisjuhendi kuvamine(retsepti nupp), ostunimekirja eraldi kuvamine(näita ostunimekirja nupp). Neid võiks teha ttk vidinaga.
+Tekstikast, mis küsib kas on eelistusi: vegan, vegetaarlane(nende jaoks eraldi retseptid). 
+Loome ise iconi ja lisame selle tkinteri aknale.
 
 Milliste ülesannete eest kumbki vastutab?
 
