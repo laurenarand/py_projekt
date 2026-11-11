@@ -10,15 +10,26 @@ import tkinter as tk
 from tkinter import messagebox
 
 
-# Näitlikud hinnad eurodes
-hinnad = {
-    "muna": 0.30,
-    "juust": 1.50,
-    "piim": 1.00,
-    "makaronid": 1.20,
-    "tomat": 0.80,
-    "kartul": 0.90,
-    "sibul": 0.40
+hinnad = { #hinnad Coop poest
+    "muna": 1.90,
+    "juust": 1.80,
+    "kurk": 1.38,
+    "tomat": 2.00,
+    "lehtsalat": 1.80,
+    "piim": 0.60,
+    "toidukoor": 1.50,
+    "makaronid": 0.90,
+    "riis": 1.50,
+    "kartul": 0.79,
+    "tatar": 1.20,
+    "hakkliha": 2.00,
+    "kana": 3.50,
+    "kodujuust": 1.40,
+    "leib": 0.60,
+    "sai": 0.70,
+    "või": 1.35,
+    "merevaik": 2.00,
+    "sibul": 0.50
 }
 
 retseptid = {
@@ -41,56 +52,50 @@ retseptid = {
 }
 
 
-def leia_retseptid():
-    """Leiab eelarvesse sobivad retseptid."""
+def leia_retseptid():  #leiame eelarvega sobivad retseptid
     try:
-        eelarve = float(eelarve_sisend.get().replace(",", "."))
-        if eelarve < 0:
-            raise ValueError
+        eelarve = float(eelarve_sisend.get())  #kasutaja sisestab oma eelarve ja get() võtab sisestatud väärtuse
+
+        if eelarve <= 0:
+            messagebox.showerror("Viga", "Vale väärtus on sisestatud")
+            return
     except ValueError:
-        messagebox.showerror(
-            "Viga", "Sisesta korrektne mittenegatiivne eelarve!"
-        )
+        messagebox.showerror("Viga", "Vale väärtus on sisestatud")
         return
+    
+    tulemused.delete("1.0", tk.END) #nullib kõik eelmised retseptid ära
 
-    olemas = {
-        nimi for nimi, muutuja in valikud.items()
-        if muutuja.get()
-    }
+    leitud = 0 #sobivad retseptid
 
-    tulemused.delete("1.0", tk.END)
-    leitud = 0
+    for nimi in retseptid:
+        puuduvad = []  #asjad mida kasutajal kodus pole
+        maksumus = 0  
 
-    for nimi, andmed in retseptid.items():
-        puuduvad = [
-            asi for asi in andmed["koostisosad"]
-            if asi not in olemas
-        ]
+        for koostisosa in retseptid[nimi]["koostisosad"]:
+            if valikud[koostisosa].get() == False:  #kontrollib, kas toiduaine kastike on valitud(True) või valimata(False)
+                puuduvad.append(koostisosa) #kui eelmine tuli False siis lisatakse see puuduvatesse
+                maksumus = maksumus + hinnad[koostisosa] #ning liidetakse uus hind
 
-        maksumus = sum(hinnad[asi] for asi in puuduvad)
+        if maksumus <= eelarve: #kui on piisavalt raha retsepti jaoks k.a puuduvad koostisosad
+            leitud = leitud + 1 #suurendatakse sobivate retseptide arvu
+            
+            tulemused.insert(tk.END, f"{nimi}\n") 
 
-        if maksumus <= eelarve:
-            leitud += 1
-            tulemused.insert(tk.END, f"{nimi}\n")
-            tulemused.insert(
-                tk.END,
-                f"Valmistamisaeg: {andmed['aeg']} min\n"
-            )
-            tulemused.insert(
-                tk.END,
-                "Osta juurde: "
-                + (", ".join(puuduvad) if puuduvad else "Mitte midagi")
-                + "\n"
-            )
-            tulemused.insert(
-                tk.END, f"Lisakulu: {maksumus:.2f} €\n\n"
-            )
+            aeg = retseptid[nimi]["aeg"]
+            tulemused.insert(tk.END, f"Valmistamisaeg: {aeg} min\n")
 
+            if puuduvad == []:
+                tulemused.insert(tk.END, f"Osta juurde: Mitte midagi\n")
+            else:
+                tulemused.insert(tk.END, f"Osta juurde:\n")
+
+                for asi in puuduvad:
+                    tulemused.insert(tk.END, f"{asi}\n")
+
+            tulemused.insert(tk.END, f"Juurde ostmise maksumus: {maksumus:.2f} €\n\n") #\n\n jätab järgmise retsepti ette tühja rea ja .2f kuvab arvu kahe komakohaga 
+    
     if leitud == 0:
-        tulemused.insert(
-            tk.END, "Selle eelarvega sobivaid retsepte ei leitud."
-        )
-
+        tulemused.insert(tk.END, f"Sobivaid retsepte ei leitud.")
 
 def main():
     #Loob rakenduse graafilise kasutajaliidese.
@@ -120,54 +125,65 @@ def main():
 
     tk.Label(
         aken,
-        text="Vali koostisosad, mis sul olemas on:",
+        text="Vali koostisosad, mis sul on kodus olemas:",
         font=("Segoe UI", 12),
         bg="#f5f5f5"
     ).pack(pady=5)
 
-    valikud = {}
+    valikud = {}  #koostisosad, mis on valitud/valimata
+
+    raam = tk.Frame(aken, bg="#f5f5f5")  #loome akna sisse eraldi ala, et paigutada koostisosad
+    raam.pack()
+
+    rida = 0
+    veerg = 0
 
     for koostisosa in hinnad:
-        muutuja = tk.BooleanVar()
-        valikud[koostisosa] = muutuja
+        muutuja = tk.BooleanVar() #jätab meelde, kas märkeruut on valitud või mitte
+        valikud[koostisosa] = muutuja #siis salvestatakse märkeruudu olek
 
         tk.Checkbutton(
-            aken,
+            raam,
             text=koostisosa.capitalize(),
             variable=muutuja,
             bg="#f5f5f5"
-        ).pack(anchor="w", padx=100)
+        ).grid(row=rida, column=veerg, sticky="w", padx=30, pady=3)  #grid paigutab märkeruudud ridadesse ja veergudesse
+
+        rida = rida + 1
+
+        if rida == 10: #programm paneb koostisosad järgmisesse veergu, kui täis on saanud 10 koostisosa
+            rida = 0
+            veerg = 1
 
     tk.Label(
         aken,
-        text="Sinu eelarve (€):",
+        text="Eelarve, palju maksaksid juurde (€):",
         font=("Segoe UI", 12),
         bg="#f5f5f5"
     ).pack(pady=10)
 
-    eelarve_sisend = tk.Entry(aken, font=("Segoe UI", 12))
+    eelarve_sisend = tk.Entry(aken, font=("Segoe UI", 12)) #eelarve sisestamine
     eelarve_sisend.pack()
-    eelarve_sisend.insert(0, "3")
-
-    tk.Button(
+    
+    tk.Button( #leiab retseptid
         aken,
         text="Leia retseptid",
-        command=leia_retseptid,
-        bg="#4CAF50",
-        fg="white",
+        command=leia_retseptid,  #nupp kasutab seda funktsiooni
+        bg="#4CAF50", #taustavärv
+        fg="white", #tekstivärv
         font=("Segoe UI", 12, "bold"),
-        padx=20,
-        pady=8
+        padx=20, #ruum teksti kõrvale
+        pady=8 #ruum üles-alla
     ).pack(pady=15)
 
-    tulemused = tk.Text(
+    tulemused = tk.Text(  #luuakse suurem kast, kuhu hakatakse kuvama retsepte
         aken,
         height=12,
         width=55,
         font=("Segoe UI", 10),
-        wrap="word"
+        wrap="word"  #kui tekst ei mahu ühele reale, viiakse see sõna järgmisele reale
     )
-    tulemused.pack(padx=15, pady=5)
+    tulemused.pack(padx=15, pady=5)  #paigutab tulemuste kasti aknasse
 
     aken.mainloop() #käivitab tkinteri sündmuste tsükli
 
