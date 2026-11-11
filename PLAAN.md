@@ -5,14 +5,14 @@ Mõtleme välja viis retsepti, graafilineaken pakub koostisosade nimekirja, või
 Mida teeme alfaversiooni jaoks?
 
 1. paneme asjade hinnad vastavalt coop toidupoele (TEHTUD!)
-2. valime vajalikud toiduained, mis arvame, et võiksid nimekirjas olla
-3. mõtleme välja retsepte nende toiduainetega
+2. valime vajalikud toiduained, mis arvame, et võiksid nimekirjas olla (TEHTUD!)
+3. mõtleme välja retsepte nende toiduainetega 
    
 Mida lisame beetaversioonis?
 
 Retsepti valmistamisjuhendi kuvamine(retsepti nupp), ostunimekirja eraldi kuvamine(näita ostunimekirja nupp). Neid võiks teha ttk vidinaga.
 Tekstikast, mis küsib kas on eelistusi: vegan, vegetaarlane(nende jaoks eraldi retseptid). 
-Loome ise iconi ja lisame selle tkinteri aknale.
+Loome ise iconi ja lisame selle tkinteri aknale. Lisame nupu, kui kodus pole ühtegi toiduainet
 
 Milliste ülesannete eest kumbki vastutab?
 
