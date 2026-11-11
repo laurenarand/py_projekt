@@ -4,6 +4,14 @@ Projekt: Tudengi retseptiabi
 Autorid: Lauren Arand ja Betti Kallus
 Kirjeldus: Retseptide soovitamine olemasolevate
 koostisosade ja eelarve põhjal.
+
+Käivitamine:
+Ava fail main.py Thonnys ja vajuta Run. 
+Terminalis käivitamiseks kirjuta: python main.py
+
+Allikad:
+Koostisosade hinnad on võetud Coopist.
+Hinnad on ligikaudsed ja võivad muutuda olenevalt poest.
 """
 
 import tkinter as tk
@@ -52,9 +60,9 @@ retseptid = {
 }
 
 
-def leia_retseptid():  #leiame eelarvega sobivad retseptid
+def leia_retseptid():  #leiame eelarvega sobivad retseptid ning kuvame puuduvad koostisosad
     try:
-        eelarve = float(eelarve_sisend.get())  #kasutaja sisestab oma eelarve ja get() võtab sisestatud väärtuse
+        eelarve = float(eelarve_sisend.get().replace(",", "."))  #kasutaja sisestab oma eelarve ja get() võtab sisestatud väärtuse
 
         if eelarve <= 0:
             messagebox.showerror("Viga", "Vale väärtus on sisestatud")
@@ -72,7 +80,7 @@ def leia_retseptid():  #leiame eelarvega sobivad retseptid
         maksumus = 0  
 
         for koostisosa in retseptid[nimi]["koostisosad"]:
-            if valikud[koostisosa].get() == False:  #kontrollib, kas toiduaine kastike on valitud(True) või valimata(False)
+            if not valikud[koostisosa].get():  #kontrollib, kas toiduaine kastike on valitud(True) või valimata(False)
                 puuduvad.append(koostisosa) #kui eelmine tuli False siis lisatakse see puuduvatesse
                 maksumus = maksumus + hinnad[koostisosa] #ning liidetakse uus hind
 
@@ -84,7 +92,7 @@ def leia_retseptid():  #leiame eelarvega sobivad retseptid
             aeg = retseptid[nimi]["aeg"]
             tulemused.insert(tk.END, f"Valmistamisaeg: {aeg} min\n")
 
-            if puuduvad == []:
+            if not puuduvad:
                 tulemused.insert(tk.END, f"Osta juurde: Mitte midagi\n")
             else:
                 tulemused.insert(tk.END, f"Osta juurde:\n")
@@ -98,7 +106,7 @@ def leia_retseptid():  #leiame eelarvega sobivad retseptid
         tulemused.insert(tk.END, f"Sobivaid retsepte ei leitud.")
 
 def main():
-    #Loob rakenduse graafilise kasutajaliidese.
+    #Loob rakenduse graafilise kasutajaliidese ja käivitab rakenduse.
     global eelarve_sisend, valikud, tulemused
 
     aken = tk.Tk() #programmi põhiaken
