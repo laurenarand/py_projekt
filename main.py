@@ -56,6 +56,70 @@ retseptid = {
     "Praekartulid": {
         "koostisosad": ["kartul", "sibul"],
         "aeg": 25
+    },
+    "Kana riisiga": {
+        "koostisosad": ["kana", "riis"],
+        "aeg": 25
+    },
+    "Koorene hakklihapasta": {
+        "koostisosad": ["hakkliha", "makaronid", "sibul", "toidukoor"],
+        "aeg": 20
+    },
+    "Kartulipuder": {
+        "koostisosad": ["kartul", "piim", "või"],
+        "aeg": 25
+    },
+    "Praemuna võileib": {
+        "koostisosad": ["muna", "leib", "või"],
+        "aeg": 10
+    },
+    "Tomati-juustuvõileib": {
+        "koostisosad": ["leib", "tomat", "juust", "või"],
+        "aeg": 5
+    },
+    "Koorene kanapasta": {
+        "koostisosad": ["kana", "makaronid", "toidukoor"],
+        "aeg": 20
+    },
+    "Hakklihakaste kartuliga": {
+        "koostisosad": ["hakkliha", "kartul", "sibul", "toidukoor"],
+        "aeg": 30
+    },
+    "Riis munaga": {
+        "koostisosad": ["riis", "muna", "sibul"],
+        "aeg": 15
+    },
+    "Juustuga ahjukartulid": {
+        "koostisosad": ["kartul", "juust", "või"],
+        "aeg": 35
+    },
+    "Kodujuustusalat": {
+        "koostisosad": ["kodujuust", "kurk", "tomat"],
+        "aeg": 5
+    },
+    "Tatar hakklihaga": {
+        "koostisosad": ["tatar", "hakkliha", "sibul"],
+        "aeg": 25
+    },
+    "Kana koorekastmes": {
+        "koostisosad": ["kana", "toidukoor", "riis"],
+        "aeg": 25
+    },
+    "Makaronid tomatikastmega": {
+        "koostisosad": ["makaronid", "tomat", "sibul"],
+        "aeg": 20
+    },
+    "Kurgi-munavõileib": {
+        "koostisosad": ["sai", "muna", "kurk", "või"],
+        "aeg": 10
+    },
+    "Kartuli-munaroog": {
+        "koostisosad": ["kartul", "muna", "sibul"],
+        "aeg": 20
+    },
+    "Tatar võiga": {
+        "koostisosad": ["tatar", "või"],
+        "aeg": 15
     }
 }
 
